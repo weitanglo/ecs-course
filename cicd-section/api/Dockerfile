@@ -2,7 +2,8 @@
 FROM gradle:jdk21 AS build
 WORKDIR /app
 COPY . /app
-RUN ./gradlew build
+RUN chomd +x ./gradlew && \
+    ./gradlew build
 
 #commit stage
 FROM openjdk:21
