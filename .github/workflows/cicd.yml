@@ -46,7 +46,7 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         #ECRのURL
       run: |
-        docekr image tag temp_api_image:latest $ECR_REGISTRY/$ECR_REPOSITORY:${{ github.sha }}
+        docker image tag temp_api_image:latest $ECR_REGISTRY/$ECR_REPOSITORY:${{ github.sha }}
         docker image push $ECR_REGISTRY/$ECR_REPOSITORY:${{ github.sha }}
         echo $ECR_REGISTRY/$ECR_REPOSITORY:${{ github.sha }} > api-image-uri.txt
     
@@ -71,7 +71,7 @@ jobs:
         role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
 
     - name: Download the artifact
-      uses: action/download-artifact@v2
+      uses: actions/download-artifact@v2
       with:
         name: api-image-uri
         path: artifacts
