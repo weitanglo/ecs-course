@@ -77,7 +77,7 @@ jobs:
         path: artifacts
     
     - name: Define the image URI
-      run:
+      run: |
         echo "API_IMAGE_URI=$(cat artifacts/api-image-uri.txt)" >> $GITHUB_ENV
     
     - name: Fill in the new image URI in the amazon ECS task definition
@@ -89,7 +89,7 @@ jobs:
         image: ${{ env.API_IMAGE_URI }}
     
     - name: Deploy ECS task
-      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.render-task-def.outputs.task-definition }}
         service: ${{ env.ECS_SERVICE }}
